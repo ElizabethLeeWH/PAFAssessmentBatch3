@@ -1,0 +1,1 @@
+mongoimport --db=pafb3db --collection=listings --type=JSON --file=listings.json

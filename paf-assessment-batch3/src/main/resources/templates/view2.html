@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <style>
+        .bordered-table, .bordered-table th, .bordered-table td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+<body>
+    <form method="GET" th:action="@{/search}" th:object="${search}">
+        <div th:if="${#lists.isEmpty(listings)}">
+            <p>No matches found for your search</p>
+        </div>
+        <div th:if="${not #lists.isEmpty(listings)}">
+                <table class="bordered-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Image</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody th:each="listing : ${listings}">
+                        <tr>
+                            <td><span th:text="${listing.name}">Listing Name</span></td>
+                            <td><span th:text="${listing.price}">Price</span></td>
+                            <td><img th:src="${listing.imageUrl.picture}" alt="Image"></td>
+                            <td>
+                                <a th:href="@{/details/{id}(id=${listing.id})}" class="btn">Details</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+        </div>
+    </form>
+</body>
+</html>

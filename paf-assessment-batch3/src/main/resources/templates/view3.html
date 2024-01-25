@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listing Details</title>
+    <style>
+        .bordered-table, .bordered-table th, .bordered-table td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+<body>
+    <a th:href="${previousPageUrl}" class="btn btn-primary">Back</a>
+    <div th:if="${listing == null}">
+        <p>No matches found for your search</p>
+    </div>
+    <div th:if="${errorMessage}" th:text="${errorMessage}" class="error-message"></div>
+    <div th:if="${listing != null}">
+        <table th:object="${listing}" class="bordered-table">
+            <tr>
+                <td>Id:</td>
+                <td th:text="${listing.id}">Listing id</td>
+            </tr>
+            <tr>
+                <td>Description:</td>
+                <td>
+                    <div th:text="${listing.desc}">Listing Description</div>
+                    <div><img th:src="${listing.imageUrl.picture}" alt="Image"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>Address:</td>
+                <td th:text="${listing.address}">Listing id</td>
+            </tr>
+            <tr>
+                <td>Price:</td>
+                <td th:text="${listing.price}">Listing id</td>
+            </tr>
+            <tr>
+                <td>Amenities:</td>
+                <td th:text="${listing.amenities}">Listing id</td>
+            </tr>
+        </table>
+        <h2>Booking</h2>
+        <form method="POST" th:action="@{/reservation/{id}(id=${listing.id})}" th:object="${reservation}">
+            <table>
+                <tr>
+                  <td>Name: </td>
+                  <td>
+                    <input type="text" th:field="*{name}">
+                    <!-- <span></span> -->
+                  </td>
+                </tr>
+                <tr>
+                    <td>Email: </td>
+                    <td>
+                      <input type="email" th:field="*{email}">
+                      <!-- <span></span> -->
+                    </td>
+                </tr>
+                <tr>
+                    <td>Arrival: </td>
+                    <td>
+                      <input type="date" th:field="*{arrivalDate}">
+                      <!-- <span></span> -->
+                    </td>
+                </tr>
+                <tr>
+                    <td>Stay: </td>
+                    <td>
+                        <input type="text" th:field="*{duration}">
+                    </td>
+                    <td>
+                        <p>days</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button type="submit">Book</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    
+</body>
+</html>

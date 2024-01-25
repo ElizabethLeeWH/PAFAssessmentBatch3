@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page</title>
+</head>
+<body>
+    <form method="GET" data-th-action="@{/search}" data-th-object="${search}">
+        <table>
+            <tr>
+              <td>Country: </td>
+              <td>
+               <select class="form-control" id="dropDownList" name="country" th:field="*{country}">
+                   <option value="0">Select Option</option>
+                   <option th:each="option : ${country}" th:value="${option}" th:text="${option}"></option>
+               </select>    
+              </td>
+            </tr>
+            <tr>
+              <td>Number of person: </td>
+              <td>
+                    <input type="number" data-th-field="*{accommodates}" min="1" max="10">
+                    <span th:if="${#fields.hasErrors('accommodates')}" th:errors="*{accommodates}">Number Error</span>
+              </td>
+            </tr>
+            <tr>
+                <td>Price Range: </td>
+                <td>Min</td>
+                <td>
+                    <input type="number" name="minPrice" data-th-field="*{minPrice}" min="1" max="10000">
+                    <span th:if="${#fields.hasErrors('minPrice')}" th:errors="*{minPrice}">Number Error</span>
+                </td>
+                <td>Max</td>
+                <td>
+                    <input type="number" name="maxPrice" data-th-field="*{maxPrice}" min="1" max="10000">
+                    <span th:if="${#fields.hasErrors('maxPrice')}" th:errors="*{maxPrice}">Number Error</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="submit">Search</button>
+                </td>
+            </tr>
+        </table>
+
+     </form>
+</body>
+</html>
